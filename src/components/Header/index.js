@@ -21,7 +21,7 @@ export default class Header extends React.Component {
                     </Col>
                     <Col style={{ color: 'white' }}>
                         <span>欢迎，{this.state.userName}</span>
-                        <NavLink to={'/login'}>退出</NavLink>
+                        <NavLink to={'/'}>退出</NavLink>
                     </Col>
                 </Row>
             </div>

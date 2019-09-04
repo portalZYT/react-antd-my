@@ -14,24 +14,25 @@ export default class Permission extends React.Component {
     state = { loading: false }
     componentWillMount() {
         this.requestList();
+
     }
     //请求列表数据
     requestList = () => {
         this.setState({
             loading: true
-        })
+        });
         getRoleList({ params: {} }).then((res) => {
             let list = res.data.result.item_list.map((item, i) => {
                 item.key = i;
                 return item;
-            })
+            });
             this.setState({
                 list,
                 loading: false
-            })
+            });
             console.log(res, this.state.loading);
         });
-    }
+    };
     /****
      * 创建角色
      */
@@ -39,7 +40,7 @@ export default class Permission extends React.Component {
         this.setState({
             isRoleVisible: true
         })
-    }
+    };
     handleRoleSubmit = () => {
         let data = this.roleForm.props.form.getFieldsValue();
         this.roleForm.props.form.validateFields((err) => {
@@ -47,7 +48,7 @@ export default class Permission extends React.Component {
                 console.log(1111, data)
             }
         });
-    }
+    };
     /***
      * 设置权限
      */
@@ -56,7 +57,7 @@ export default class Permission extends React.Component {
             Modal.info({
                 title: '信息',
                 content: '请选择一个角色'
-            })
+            });
             return;
         }
         let menuList = this.state.selectedItem.menus;
@@ -65,7 +66,7 @@ export default class Permission extends React.Component {
             detailInfo: this.state.selectedItem,
             menuInfo: menuList
         });
-    }
+    };
     handlePermEditSubmit = () => {
         let data = this.roleForm.props.form.getFieldsValue();
         data.role_id = this.state.selectedItem.id;
@@ -86,7 +87,7 @@ export default class Permission extends React.Component {
         //         this.requestList();
         //     }
         // })
-    }
+    };
     /*********
      * 用户授权
      */
@@ -95,7 +96,7 @@ export default class Permission extends React.Component {
             Modal.info({
                 title: '信息',
                 content: '未选中任何项目'
-            })
+            });
             return;
         }
         this.getRoleUserList(this.state.selectedItem.id);
@@ -104,12 +105,12 @@ export default class Permission extends React.Component {
             isAuthClosed: false,
             detailInfo: this.state.selectedItem
         });
-    }
+    };
     getRoleUserList = (id) => {
         getUserList(id).then((res) => {
             this.getAuthUserList(res.data.result);
         })
-    }
+    };
     getAuthUserList = (dataSource) => {
         const mockData = [];
         const targetKeys = [];
@@ -154,7 +155,7 @@ export default class Permission extends React.Component {
         //         this.requestList();
         //     }
         // })
-    }
+    };
     /****
      * 渲染父页面
      */
@@ -328,13 +329,13 @@ class PermEditForm extends React.Component {
     };
 
     renderBtnTreedNode = (menu, parentKey = '') => {
-        const btnTreeNode = []
+        const btnTreeNode = [];
         menu.btnList.forEach((item) => {
             console.log(parentKey + '-btn-' + item.key);
             btnTreeNode.push(<TreeNode title={item.title} key={parentKey + '-btn-' + item.key} className="op-role-tree" />);
-        })
+        });
         return btnTreeNode;
-    }
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;
