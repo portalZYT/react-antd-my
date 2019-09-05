@@ -1,23 +1,26 @@
 import React from 'react';
-import { Menu } from 'antd';
-import { NavLink } from 'react-router-dom';
+import {Menu} from 'antd';
+import {NavLink} from 'react-router-dom';
 import MenuConfig from '../../menuConfig';
 
 import './index.css'
+
 const SubMenu = Menu.SubMenu;
+
 function handleClick(e) {
     console.log('click', e);
 }
-export default class NavLeft extends React.Component {
-    state = {
 
-    }
+export default class NavLeft extends React.Component {
+    state = {};
+
     componentWillMount() {
         const menuTreeNode = this.renderMenu(MenuConfig);
         this.setState({
             menuTreeNode
         })
     }
+
     // 菜单渲染
     renderMenu = (data) => {
         return data.map((item) => {
@@ -32,15 +35,18 @@ export default class NavLeft extends React.Component {
                 <NavLink to={item.key}>{item.title}</NavLink>
             </Menu.Item>
         })
-    }
+    };
+
     render() {
         return (
-            <div>
+            <div className='left-box'>
                 <div className='left-top'>
-                    <img src='/assets/logo.svg' />
+                    <img src='/assets/logo.svg'/>
                     <h2>welcome</h2>
                 </div>
-                <Menu theme="dark">
+                <Menu theme="dark"
+                      defaultSelectedKeys={['/home']}
+                      mode='inline'>
                     {this.state.menuTreeNode}
                 </Menu>
             </div>
